@@ -24,11 +24,22 @@ class SignUp extends React.Component {
     this.props.signup(this.state);
   };
 
+  // componentDidMount() {
+  //   console.log(this.props.user);
+  // }
+
   render() {
+    let errorClass = "";
+    if (this.props.user.error) {
+      errorClass = "alert alert-danger";
+    }
     return (
       <div className="myCard">
         <div className="card auth-card input-field">
           <h2>Instagram</h2>
+          <div className={errorClass} role="alert">
+            {this.props.user.error}
+          </div>
           <form onSubmit={this.handleSubmit}>
             <input
               onChange={this.handleChange}
@@ -65,4 +76,10 @@ class SignUp extends React.Component {
   }
 }
 
-export default connect(null, { signup })(SignUp);
+const mstp = state => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mstp, { signup })(SignUp);

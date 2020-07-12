@@ -9,7 +9,6 @@ export const signup = data => {
     })
       .then(res => res.json())
       .then(user => {
-          console.log(user)
         dispatch({ type: "SIGNUP", payload: user });
       });
   };
