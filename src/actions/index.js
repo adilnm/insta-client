@@ -29,3 +29,20 @@ export const signin = data => {
       });
   };
 };
+
+export const createPost = data => {
+  return dispatch => {
+    fetch("/createpost", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: "ADD-POST", payload: data });
+      });
+  };
+};
+
