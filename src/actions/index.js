@@ -24,8 +24,9 @@ export const signin = data => {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(user => {
-        dispatch({ type: "SIGNUP", payload: user });
+      .then(data => {
+        localStorage.setItem("jwt",data.token)
+        dispatch({ type: "SIGNUP", payload: data.user });
       });
   };
 };
@@ -35,7 +36,8 @@ export const createPost = data => {
     fetch("/createpost", {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
       },
       body: JSON.stringify(data)
     })
