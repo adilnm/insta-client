@@ -15,7 +15,6 @@ class CreatePost extends React.Component {
 
   componentDidMount() {
     const user=JSON.parse(localStorage.getItem("user"))
-    console.log(user)
     return  !user ? this.props.history.push("/signin") : null;
   }
 

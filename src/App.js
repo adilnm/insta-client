@@ -6,25 +6,20 @@ import Signup from "./components/Signup";
 import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import createPost from "./components/CreatePost";
-import { currentUser } from "./actions";
-import { connect } from "react-redux";
 
-class App extends React.Component {
-
-  render() {
-    return (
-      <BrowserRouter>
-        <Navbar />
-        <div className="App">
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path="/create" component={createPost} />
-        </div>
-      </BrowserRouter>
-    );
-  }
+function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <div className="App">
+      <Route exact path="/" component={Home} />
+      <Route exact path="/signin" component={SignIn} />
+      <Route exact path="/signup" component={Signup} />
+      <Route exact path="/profile" component={Profile} />
+      <Route exact path="/create" component={createPost} />
+      </div>
+    </BrowserRouter>
+  );
 }
 
-export default connect(null, { currentUser })(App);
+export default App;

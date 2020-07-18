@@ -11,6 +11,12 @@ class SignIn extends React.Component {
       password: ""
     };
   }
+
+  componentDidMount() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user ? this.props.history.push("/") : null;
+  }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -22,9 +28,6 @@ class SignIn extends React.Component {
     this.props.signin(this.state);
   };
 
-  componentDidMount() {
-   
-  }
 
   render() {
     let errorClass = "";

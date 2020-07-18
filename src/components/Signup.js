@@ -24,9 +24,10 @@ class SignUp extends React.Component {
     this.props.signup(this.state);
   };
 
-  // componentDidMount() {
-  //   console.log(this.props.user);
-  // }
+  componentDidMount() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user ? this.props.history.push("/") : null;
+  }
 
   render() {
     let errorClass = "";
@@ -78,7 +79,7 @@ class SignUp extends React.Component {
 
 const mstp = state => {
   return {
-    user: state.user
+    user: state.auth
   };
 };
 
