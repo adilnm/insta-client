@@ -25,9 +25,22 @@ export const signin = data => {
     })
       .then(res => res.json())
       .then(data => {
-        localStorage.setItem("jwt",data.token)
+        localStorage.setItem("jwt", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
         dispatch({ type: "SIGNUP", payload: data.user });
       });
+  };
+};
+
+export const currentUser = () => {
+  return dispatch => {
+    fetch("/user", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(user => dispatch({type: "CURRENT-USER", payload: user}));
   };
 };
 
@@ -37,7 +50,7 @@ export const createPost = data => {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        "Authorization":"Bearer "+localStorage.getItem("jwt")
+        Authorization: "Bearer " + localStorage.getItem("jwt")
       },
       body: JSON.stringify(data)
     })
@@ -47,4 +60,3 @@ export const createPost = data => {
       });
   };
 };
-

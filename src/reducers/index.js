@@ -1,8 +1,10 @@
 import signup from "./signup";
 import { combineReducers } from "redux";
 import createPost from "./createPost";
+import  currentUser from "./currentUser";
 
 export default combineReducers({
-  user:signup,
-  myPosts:createPost
+  auth:signup,
+  myPosts:createPost,
+  user:currentUser
 });

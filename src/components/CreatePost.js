@@ -13,6 +13,12 @@ class CreatePost extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const user=JSON.parse(localStorage.getItem("user"))
+    console.log(user)
+    return  !user ? this.props.history.push("/signin") : null;
+  }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -32,12 +38,18 @@ class CreatePost extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ url: data.url });
-      }).then(()=>this.props.createPost({ title:this.state.title, body:this.state.body, pic:this.state.url }))
-      
-    
+      })
+      .then(() =>
+        this.props.createPost({
+          title: this.state.title,
+          body: this.state.body,
+          pic: this.state.url
+        })
+      );
   };
 
   render() {
+    
     return (
       <div
         className="card input-field"
@@ -81,5 +93,7 @@ class CreatePost extends React.Component {
     );
   }
 }
+
+
 
 export default connect(null, { createPost })(CreatePost);

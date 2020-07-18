@@ -22,9 +22,13 @@ class SignIn extends React.Component {
     this.props.signin(this.state);
   };
 
+  componentDidMount() {
+   
+  }
+
   render() {
     let errorClass = "";
-    if (this.props.user.error) {
+    if (this.props.auth.error) {
       errorClass = "alert alert-danger";
     }
     return (
@@ -32,7 +36,7 @@ class SignIn extends React.Component {
         <div className="card auth-card input-field">
           <h2>Instagram</h2>
           <div className={errorClass} role="alert">
-            {this.props.user.error}
+            {this.props.auth.error}
           </div>
           <form onSubmit={this.handleSubmit}>
             <input
@@ -66,6 +70,7 @@ class SignIn extends React.Component {
 
 const mstp = state => {
   return {
+    auth: state.auth,
     user: state.user
   };
 };
