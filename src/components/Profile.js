@@ -1,12 +1,11 @@
 import React from "react";
 
 class Profile extends React.Component {
-
+  
   componentDidMount() {
     const user = JSON.parse(localStorage.getItem("user"));
     return !user ? this.props.history.push("/signin") : null;
   }
-
   render() {
     return (
       <div style={{ maxWidth: "550px", margin: "0px auto" }}>

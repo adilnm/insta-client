@@ -60,3 +60,15 @@ export const createPost = data => {
       });
   };
 };
+
+export const allPosts = () => {
+  return dispatch => {
+    fetch("/allposts", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(data => dispatch({type: "ALL-POSTS", payload: data.posts}));
+  };
+};
