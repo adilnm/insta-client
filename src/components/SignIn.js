@@ -28,7 +28,6 @@ class SignIn extends React.Component {
     this.props.signin(this.state);
   };
 
-
   render() {
     let errorClass = "";
     if (this.props.auth.error) {
@@ -78,4 +77,9 @@ const mstp = state => {
   };
 };
 
-export default connect(mstp, { signin })(SignIn);
+const mdtp = (dispatch, ownProps) => {
+  return {
+  signin: data => dispatch(signin(data, ownProps)),
+  };
+};
+export default connect(mstp, mdtp)(SignIn);

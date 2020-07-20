@@ -1,4 +1,4 @@
-export const signup = data => {
+export const signup = (data, ownProps) => {
   return dispatch => {
     fetch("/signup", {
       method: "post",
@@ -10,11 +10,12 @@ export const signup = data => {
       .then(res => res.json())
       .then(user => {
         dispatch({ type: "SIGNUP", payload: user });
+        ownProps.history.push("/");
       });
   };
 };
 
-export const signin = data => {
+export const signin = (data, ownProps) => {
   return dispatch => {
     fetch("/signin", {
       method: "post",
@@ -28,7 +29,15 @@ export const signin = data => {
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         dispatch({ type: "SIGNUP", payload: data.user });
+        ownProps.history.push("/");
       });
+  };
+};
+
+export const logout = () => {
+  localStorage.clear();
+  return {
+    type: "LOGOUT"
   };
 };
 
@@ -40,7 +49,7 @@ export const currentUser = () => {
       }
     })
       .then(res => res.json())
-      .then(user => dispatch({type: "CURRENT-USER", payload: user}));
+      .then(user => dispatch({ type: "CURRENT-USER", payload: user }));
   };
 };
 
@@ -69,6 +78,6 @@ export const allPosts = () => {
       }
     })
       .then(res => res.json())
-      .then(data => dispatch({type: "ALL-POSTS", payload: data.posts}));
+      .then(data => dispatch({ type: "ALL-POSTS", payload: data.posts }));
   };
 };

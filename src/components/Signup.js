@@ -83,4 +83,10 @@ const mstp = state => {
   };
 };
 
-export default connect(mstp, { signup })(SignUp);
+const mdtp = (dispatch, ownProps) => {
+  return {
+    signup: data => dispatch(signup(data, ownProps)),
+  };
+};
+
+export default connect(mstp, mdtp)(SignUp);

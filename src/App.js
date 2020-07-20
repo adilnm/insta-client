@@ -8,6 +8,7 @@ import SignIn from "./components/SignIn";
 import createPost from "./components/CreatePost";
 import { currentUser } from "./actions";
 import { connect } from "react-redux";
+import Logout from "./components/Logout";
 
 class App extends React.Component {
   componentDidMount(){
@@ -23,6 +24,7 @@ class App extends React.Component {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/create" component={createPost} />
+          <Route exact path="/logout" component={Logout} />
         </div>
       </BrowserRouter>
     );

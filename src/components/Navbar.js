@@ -12,6 +12,9 @@ const Navbar = () => {
         </li>,
         <li>
           <Link to="/create">Create Post</Link>
+        </li>,
+        <li>
+          <Link to="/logout">Logout</Link>
         </li>
       ];
     } else {

@@ -8,8 +8,9 @@ class Home extends React.Component {
     // return !user ? this.props.history.push("/signin") : null;
     if (!user) {
       this.props.history.push("/signin");
+    } else {
+      this.props.allPosts();
     }
-    this.props.allPosts();
   }
 
   render() {
@@ -17,13 +18,10 @@ class Home extends React.Component {
       <div className="Home">
         {this.props.posts.map(item => {
           return (
-            <div key={item._id}className="card home-card">
+            <div key={item._id} className="card home-card">
               <h5>{item.postedBy.name}</h5>
               <div className="card-image">
-                <img
-                  src={item.photo}
-                  alt=""
-                />
+                <img src={item.photo} alt="" />
               </div>
               <div className="card-content">
                 <i className="material-icons" style={{ color: "red" }}>
