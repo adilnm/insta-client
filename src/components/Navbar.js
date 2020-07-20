@@ -1,11 +1,12 @@
 import React from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-const Navbar = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const renderList = () => {
-    if (user) {
+class Navbar extends React.Component {
+  
+  renderList = () => {
+    if (this.props.user) {
       return [
         <li>
           <Link to="/profile">Profile</Link>
@@ -28,18 +29,24 @@ const Navbar = () => {
       ];
     }
   };
-  return (
-    <nav>
-      <div className="nav-wrapper white">
-        <Link to="/" className="brand-logo left">
-          Instagram
-        </Link>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
-          {renderList()}
-        </ul>
-      </div>
-    </nav>
-  );
+  render() {
+    return (
+      <nav>
+        <div className="nav-wrapper white">
+          <Link to="/" className="brand-logo left">
+            Instagram
+          </Link>
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
+            {this.renderList()}
+          </ul>
+        </div>
+      </nav>
+    );
+  }
+}
+
+const mstp = ({ user }) => {
+  return { user };
 };
 
-export default Navbar;
+export default connect(mstp)(Navbar);
