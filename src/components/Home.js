@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { allPosts, likes } from "../actions";
+import { allPosts, likes, unlikes } from "../actions";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -14,6 +14,7 @@ class Home extends React.Component {
   }
 
   render() {
+    const userId=this.props.user?this.props.user._id:null
     return (
       <div className="Home">
         {this.props.posts.map(item => {
@@ -27,13 +28,24 @@ class Home extends React.Component {
                 <i className="material-icons" style={{ color: "red" }}>
                   favorite
                 </i>
-                <i
-                  onClick={e => this.props.likes(item._id)}
-                  className="material-icons"
-                >
-                  thumb_up
-                </i>
-                <i className="material-icons">thumb_down</i>
+                {item.likes.includes(userId) ? (
+                  <i
+                    onClick={e => this.props.unlikes(item._id)}
+                    className="material-icons"
+                    disabled
+                  >
+                    thumb_down
+                  </i>
+                ) : (
+                  <i
+                    onClick={e => this.props.likes(item._id)}
+                    className="material-icons"
+                    disabled
+                  >
+                    thumb_up
+                  </i>
+                )}
+                
                 <h6>{item.likes.length} likes</h6>
                 <h6>{item.title}</h6>
                 <p>{item.body}</p>
@@ -47,9 +59,10 @@ class Home extends React.Component {
   }
 }
 
-const mstp = ({ posts }) => {
+const mstp = ({ posts, user }) => {
   return {
-    posts
+    posts,
+    user
   };
 };
-export default connect(mstp, { allPosts, likes })(Home);
+export default connect(mstp, { allPosts, likes, unlikes })(Home);
