@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { allPosts } from "../actions";
+import { allPosts, likes } from "../actions";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -27,7 +27,14 @@ class Home extends React.Component {
                 <i className="material-icons" style={{ color: "red" }}>
                   favorite
                 </i>
-
+                <i
+                  onClick={e => this.props.likes(item._id)}
+                  className="material-icons"
+                >
+                  thumb_up
+                </i>
+                <i className="material-icons">thumb_down</i>
+                <h6>{item.likes.length} likes</h6>
                 <h6>{item.title}</h6>
                 <p>{item.body}</p>
                 <input type="text" placeholder="Add a comment" />
@@ -45,4 +52,4 @@ const mstp = ({ posts }) => {
     posts
   };
 };
-export default connect(mstp, { allPosts })(Home);
+export default connect(mstp, { allPosts, likes })(Home);
