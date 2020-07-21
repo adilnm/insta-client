@@ -1,10 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
+import { myPosts } from "../actions";
 
 class Profile extends React.Component {
-  
   componentDidMount() {
     const user = JSON.parse(localStorage.getItem("user"));
-    return !user ? this.props.history.push("/signin") : null;
+    if (!user) {
+      this.props.history.push("/signin");
+    } else {
+      this.props.myPosts();
+    }
   }
   render() {
     return (
@@ -25,7 +30,7 @@ class Profile extends React.Component {
             />
           </div>
           <div>
-            <h4>Jon Jemes</h4>
+            <h4>{this.props.user ? this.props.user.name : null}</h4>
             <div
               style={{
                 display: "flex",
@@ -40,39 +45,23 @@ class Profile extends React.Component {
           </div>
         </div>
         <div className="gallery">
-          <img
-            className="item"
-            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            alt=""
-          />
-          <img
-            className="item"
-            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            alt=""
-          />
-          <img
-            className="item"
-            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            alt=""
-          />
-          <img
-            className="item"
-            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            alt=""
-          />
-          <img
-            className="item"
-            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            alt=""
-          />
-          <img
-            className="item"
-            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            alt=""
-          />
+          {this.props.posts.map(item => {
+            return (
+              <img
+                key={item._id}
+                className="item"
+                src={item.photo}
+                alt={item.title}
+              />
+            );
+          })}
         </div>
       </div>
     );
   }
 }
-export default Profile;
+
+const mstp = ({ myPosts, user }) => {
+  return { posts: myPosts, user };
+};
+export default connect(mstp, { myPosts })(Profile);

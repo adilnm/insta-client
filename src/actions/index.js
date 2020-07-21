@@ -81,3 +81,17 @@ export const allPosts = () => {
       .then(data => dispatch({ type: "ALL-POSTS", payload: data.posts }));
   };
 };
+
+export const myPosts = () => {
+  return dispatch => {
+    fetch("/myposts", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(data => dispatch({ type: "MY-POSTS", payload: data.myPost }));
+  };
+};
+
+
