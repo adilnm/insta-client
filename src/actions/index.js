@@ -29,6 +29,7 @@ export const signin = (data, ownProps) => {
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         dispatch({ type: "SIGNUP", payload: data.user });
+        dispatch({ type: "CURRENT-USER", payload: data.user });
         ownProps.history.push("/");
       });
   };
@@ -102,11 +103,11 @@ export const likes = id => {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("jwt")
       },
-      body: JSON.stringify({postId:id})
+      body: JSON.stringify({ postId: id })
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "ALL-POSTS", payload: data.posts })
+        dispatch({ type: "ALL-POSTS", payload: data.posts });
       });
   };
 };
@@ -119,12 +120,32 @@ export const unlikes = id => {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("jwt")
       },
-      body: JSON.stringify({postId:id})
+      body: JSON.stringify({ postId: id })
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "ALL-POSTS", payload: data.posts })
+        dispatch({ type: "ALL-POSTS", payload: data.posts });
       });
   };
 };
 
+export const comments = (text, postId) => {
+  console.log(text,postId)
+  return dispatch => {
+    fetch("/comment", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      },
+      body: JSON.stringify({
+        text,
+        postId
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: "ALL-POSTS", payload: data.posts });
+      });
+  };
+};

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { allPosts, likes, unlikes } from "../actions";
+import { allPosts, likes, unlikes, comments } from "../actions";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const userId=this.props.user?this.props.user._id:null
+    const userId = this.props.user ? this.props.user._id : null;
     return (
       <div className="Home">
         {this.props.posts.map(item => {
@@ -45,11 +45,30 @@ class Home extends React.Component {
                     thumb_up
                   </i>
                 )}
-                
+
                 <h6>{item.likes.length} likes</h6>
                 <h6>{item.title}</h6>
                 <p>{item.body}</p>
-                <input type="text" placeholder="Add a comment" />
+                {item.comments.map(comment => {
+                  return (
+                    <h6 key={comment._id}>
+                      <b>
+                        <span style={{ fontWeight: "500" }}>
+                        <b>{comment.postedBy.name} </b>
+                        </span>
+                      </b>
+                      {comment.text}
+                    </h6>
+                  );
+                })}
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    this.props.comments(e.target[0].value, item._id);
+                  }}
+                >
+                  <input type="text" placeholder="Add a comment" />
+                </form>
               </div>
             </div>
           );
@@ -65,4 +84,4 @@ const mstp = ({ posts, user }) => {
     user
   };
 };
-export default connect(mstp, { allPosts, likes, unlikes })(Home);
+export default connect(mstp, { allPosts, likes, unlikes, comments })(Home);
