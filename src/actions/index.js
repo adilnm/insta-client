@@ -130,7 +130,6 @@ export const unlikes = id => {
 };
 
 export const comments = (text, postId) => {
-  console.log(text,postId)
   return dispatch => {
     fetch("/comment", {
       method: "put",
@@ -146,6 +145,21 @@ export const comments = (text, postId) => {
       .then(res => res.json())
       .then(data => {
         dispatch({ type: "ALL-POSTS", payload: data.posts });
+      });
+  };
+};
+
+export const deletePost = postId => {
+  return dispatch => {
+    fetch(`/deletepost/${postId}`, {
+      method: "delete",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: "DELETE-POST", payload: postId});
       });
   };
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { allPosts, likes, unlikes, comments } from "../actions";
+import { allPosts, likes, unlikes, comments, deletePost } from "../actions";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -20,7 +20,14 @@ class Home extends React.Component {
         {this.props.posts.map(item => {
           return (
             <div key={item._id} className="card home-card">
-              <h5>{item.postedBy.name}</h5>
+              <h5>
+                {item.postedBy.name}
+                {item.postedBy._id === this.props.user._id && (
+                  <i style={{ float: "right" }} className="material-icons" onClick={e=>this.props.deletePost(item._id)}>
+                    delete
+                  </i>
+                )}
+              </h5>
               <div className="card-image">
                 <img src={item.photo} alt="" />
               </div>
@@ -54,7 +61,7 @@ class Home extends React.Component {
                     <h6 key={comment._id}>
                       <b>
                         <span style={{ fontWeight: "500" }}>
-                        <b>{comment.postedBy.name} </b>
+                          <b>{comment.postedBy.name} </b>
                         </span>
                       </b>
                       {comment.text}
@@ -84,4 +91,10 @@ const mstp = ({ posts, user }) => {
     user
   };
 };
-export default connect(mstp, { allPosts, likes, unlikes, comments })(Home);
+export default connect(mstp, {
+  allPosts,
+  likes,
+  unlikes,
+  comments,
+  deletePost
+})(Home);
