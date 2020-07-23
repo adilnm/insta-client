@@ -163,3 +163,17 @@ export const deletePost = postId => {
       });
   };
 };
+
+export const userProfile = (id) => {
+  return dispatch => {
+    fetch(`/user/${id}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: "FIND-USER", payload: data})
+      });
+  };
+};

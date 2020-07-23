@@ -9,10 +9,11 @@ import createPost from "./components/CreatePost";
 import { currentUser } from "./actions";
 import { connect } from "react-redux";
 import Logout from "./components/Logout";
+import UserProfile from "./components/UserProfile";
 
 class App extends React.Component {
-  componentDidMount(){
-    this.props.currentUser()
+  componentDidMount() {
+    this.props.currentUser();
   }
   render() {
     return (
@@ -25,10 +26,11 @@ class App extends React.Component {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/create" component={createPost} />
           <Route exact path="/logout" component={Logout} />
+          <Route exact path="/profile/:userid" component={UserProfile} />
         </div>
       </BrowserRouter>
     );
   }
 }
 
-export default connect(null,{currentUser})(App);
+export default connect(null, { currentUser })(App);

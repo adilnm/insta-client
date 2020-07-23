@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { allPosts, likes, unlikes, comments, deletePost } from "../actions";
+import { Link } from "react-router-dom";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -21,9 +22,15 @@ class Home extends React.Component {
           return (
             <div key={item._id} className="card home-card">
               <h5>
-                {item.postedBy.name}
+                <Link to={"/profile/" + item.postedBy._id}>
+                  {item.postedBy.name}
+                </Link>
                 {item.postedBy._id === this.props.user._id && (
-                  <i style={{ float: "right" }} className="material-icons" onClick={e=>this.props.deletePost(item._id)}>
+                  <i
+                    style={{ float: "right" }}
+                    className="material-icons"
+                    onClick={e => this.props.deletePost(item._id)}
+                  >
                     delete
                   </i>
                 )}
