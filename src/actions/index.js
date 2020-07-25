@@ -26,6 +26,7 @@ export const signin = (data, ownProps) => {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         dispatch({ type: "SIGNUP", payload: data.user });
@@ -170,6 +171,44 @@ export const userProfile = (id) => {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt")
       }
+    })
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: "FIND-USER", payload: data})
+      });
+  };
+};
+
+export const follow = (followId) => {
+  return dispatch => {
+    fetch("/follow", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      },
+      body: JSON.stringify({
+        followId
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: "FIND-USER", payload: data})
+      });
+  };
+};
+
+export const unFollow = (unfollowId) => {
+  return dispatch => {
+    fetch("/unfollow", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      },
+      body: JSON.stringify({
+        unfollowId
+      })
     })
       .then(res => res.json())
       .then(data => {
