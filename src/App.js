@@ -10,6 +10,7 @@ import { currentUser } from "./actions";
 import { connect } from "react-redux";
 import Logout from "./components/Logout";
 import UserProfile from "./components/UserProfile";
+import FollowedPosts from "./components/FollowedPosts";
 
 class App extends React.Component {
   componentDidMount() {
@@ -27,6 +28,7 @@ class App extends React.Component {
           <Route exact path="/create" component={createPost} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/profile/:userid" component={UserProfile} />
+          <Route exact path="/followedposts" component={FollowedPosts} />
         </div>
       </BrowserRouter>
     );

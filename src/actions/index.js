@@ -26,7 +26,7 @@ export const signin = (data, ownProps) => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        console.log(data);
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         dispatch({ type: "SIGNUP", payload: data.user });
@@ -160,12 +160,12 @@ export const deletePost = postId => {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "DELETE-POST", payload: postId});
+        dispatch({ type: "DELETE-POST", payload: postId });
       });
   };
 };
 
-export const userProfile = (id) => {
+export const userProfile = id => {
   return dispatch => {
     fetch(`/user/${id}`, {
       headers: {
@@ -174,12 +174,12 @@ export const userProfile = (id) => {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "FIND-USER", payload: data})
+        dispatch({ type: "FIND-USER", payload: data });
       });
   };
 };
 
-export const follow = (followId) => {
+export const follow = followId => {
   return dispatch => {
     fetch("/follow", {
       method: "put",
@@ -193,14 +193,13 @@ export const follow = (followId) => {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "FIND-USER", payload: data})
-        dispatch({ type: "ADD-FOLLOWING", payload: data.user._id})
-
+        dispatch({ type: "FIND-USER", payload: data });
+        dispatch({ type: "ADD-FOLLOWING", payload: data.user._id });
       });
   };
 };
 
-export const unFollow = (unfollowId) => {
+export const unFollow = unfollowId => {
   return dispatch => {
     fetch("/unfollow", {
       method: "put",
@@ -214,9 +213,20 @@ export const unFollow = (unfollowId) => {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "FIND-USER", payload: data})
-        console.log(data)
-        dispatch({ type: "REMOVE-FOLLOWING", payload: data.user._id})
+        dispatch({ type: "FIND-USER", payload: data });
+        dispatch({ type: "REMOVE-FOLLOWING", payload: data.user._id });
       });
+  };
+};
+
+export const followedPosts = () => {
+  return dispatch => {
+    fetch("/followedposts", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(data => dispatch({ type: "FOLLOWED-POSTS", payload: data.posts }));
   };
 };

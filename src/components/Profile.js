@@ -33,6 +33,7 @@ class Profile extends React.Component {
             </div>
             <div>
               <h4>{user.name}</h4>
+              <h5>{user.email}</h5>
               <div
                 style={{
                   display: "flex",

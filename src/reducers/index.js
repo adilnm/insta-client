@@ -5,6 +5,7 @@ import currentUser from "./currentUser";
 import allPosts from "./allPosts";
 import myPosts from "./myPosts";
 import otherUserProfiles from "./otherUserProfiles";
+import followedPosts from "./followedposts";
 
 export default combineReducers({
   auth: signup,
@@ -12,5 +13,6 @@ export default combineReducers({
   user: currentUser,
   posts: allPosts,
   myPosts,
-  otherProfile: otherUserProfiles
+  otherProfile: otherUserProfiles,
+  followedPosts
 });
