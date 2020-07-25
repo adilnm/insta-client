@@ -194,6 +194,8 @@ export const follow = (followId) => {
       .then(res => res.json())
       .then(data => {
         dispatch({ type: "FIND-USER", payload: data})
+        dispatch({ type: "ADD-FOLLOWING", payload: data.user._id})
+
       });
   };
 };
@@ -213,6 +215,8 @@ export const unFollow = (unfollowId) => {
       .then(res => res.json())
       .then(data => {
         dispatch({ type: "FIND-USER", payload: data})
+        console.log(data)
+        dispatch({ type: "REMOVE-FOLLOWING", payload: data.user._id})
       });
   };
 };
