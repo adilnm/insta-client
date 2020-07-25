@@ -27,7 +27,7 @@ class FollowedPosts extends React.Component {
         {this.props.posts.map(item => {
           return (
             <div key={item._id} className="card home-card">
-              <h5>
+              <h5 style={{ padding: "5px" }}>
                 <Link to={"/profile/" + item.postedBy._id}>
                   {item.postedBy.name}
                 </Link>

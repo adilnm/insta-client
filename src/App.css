@@ -33,5 +33,8 @@ h2 {
   max-width: 500px;
   height: max-content;
   margin: 26px auto;
+}
 
+.material-icons:hover {
+  cursor: pointer;
 }

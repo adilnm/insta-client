@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Navbar extends React.Component {
-  
   renderList = () => {
     if (this.props.user) {
       return [
@@ -13,6 +12,9 @@ class Navbar extends React.Component {
         </li>,
         <li>
           <Link to="/create">Create Post</Link>
+        </li>,
+        <li>
+          <Link to="/followedposts">My Following Posts</Link>
         </li>,
         <li>
           <Link to="/logout">Logout</Link>
