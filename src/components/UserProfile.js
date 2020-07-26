@@ -31,7 +31,7 @@ class UserProfile extends React.Component {
                   height: "160px",
                   borderRadius: "80px"
                 }}
-                src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                src={user.pic}
                 alt="profile pic"
               />
             </div>

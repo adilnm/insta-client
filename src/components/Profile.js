@@ -12,10 +12,12 @@ class Profile extends React.Component {
     }
   }
   render() {
-    const {user,posts}=this.props
-    if(user&&posts){
+    const { user, posts } = this.props;
+    if (user && posts) {
       return (
-        <div style={{ maxWidth: "550px", margin: "0px auto" }}>
+        <div
+          style={{ maxWidth: "550px", margin: "0px auto", paddingTop: "5px" }}
+        >
           <div
             style={{
               display: "flex",
@@ -26,8 +28,12 @@ class Profile extends React.Component {
           >
             <div>
               <img
-                style={{ width: "160px", height: "160px", borderRadius: "80px" }}
-                src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                style={{
+                  width: "160px",
+                  height: "160px",
+                  borderRadius: "80px"
+                }}
+                src={user.pic}
                 alt="profile pic"
               />
             </div>
@@ -61,8 +67,8 @@ class Profile extends React.Component {
           </div>
         </div>
       );
-    }else{
-      return <div></div>
+    } else {
+      return <div></div>;
     }
   }
 }

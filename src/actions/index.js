@@ -8,8 +8,11 @@ export const signup = (data, ownProps) => {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(user => {
-        dispatch({ type: "SIGNUP", payload: user });
+      .then(data => {
+        localStorage.setItem("jwt", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        dispatch({ type: "SIGNUP", payload: data });
+        dispatch({ type: "CURRENT-USER", payload: data.user });
         ownProps.history.push("/");
       });
   };
@@ -26,7 +29,6 @@ export const signin = (data, ownProps) => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         dispatch({ type: "SIGNUP", payload: data.user });
