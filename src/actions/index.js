@@ -9,11 +9,15 @@ export const signup = (data, ownProps) => {
     })
       .then(res => res.json())
       .then(data => {
-        localStorage.setItem("jwt", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        if (!data.error) {
+          data.errorlocalStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          dispatch({ type: "CURRENT-USER", payload: data.user });
+        }
         dispatch({ type: "SIGNUP", payload: data });
-        dispatch({ type: "CURRENT-USER", payload: data.user });
-        ownProps.history.push("/");
+        if (!data.error) {
+          ownProps.history.push("/");
+        }
       });
   };
 };
@@ -29,11 +33,15 @@ export const signin = (data, ownProps) => {
     })
       .then(res => res.json())
       .then(data => {
-        localStorage.setItem("jwt", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        dispatch({ type: "SIGNUP", payload: data.user });
-        dispatch({ type: "CURRENT-USER", payload: data.user });
-        ownProps.history.push("/");
+        if (!data.error) {
+          data.errorlocalStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          dispatch({ type: "CURRENT-USER", payload: data.user });
+        }
+        dispatch({ type: "SIGNUP", payload: data });
+        if (!data.error) {
+          ownProps.history.push("/");
+        }
       });
   };
 };
