@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { myPosts } from "../actions";
+import { myPosts, updatePic } from "../actions";
 
 class Profile extends React.Component {
   componentDidMount() {
@@ -11,6 +11,23 @@ class Profile extends React.Component {
       this.props.myPosts();
     }
   }
+
+  updatePic = pic => {
+    const data = new FormData();
+    data.append("file", pic);
+    data.append("upload_preset", "insta-clone");
+    data.append("cloud_name", "dzytpgisl");
+    fetch("https://api.cloudinary.com/v1_1/dzytpgisl/image/upload", {
+      method: "post",
+      body: data
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.props.updatePic({
+          pic: data.url
+        });
+      });
+  };
   render() {
     const { user, posts } = this.props;
     if (user && posts) {
@@ -20,36 +37,53 @@ class Profile extends React.Component {
         >
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-around",
               margin: "18px,0px",
               borderBottom: "1px solid grey"
             }}
           >
-            <div>
-              <img
-                style={{
-                  width: "160px",
-                  height: "160px",
-                  borderRadius: "80px"
-                }}
-                src={user.pic}
-                alt="profile pic"
-              />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around"
+              }}
+            >
+              <div>
+                <img
+                  style={{
+                    width: "160px",
+                    height: "160px",
+                    borderRadius: "80px"
+                  }}
+                  src={user.pic}
+                  alt="profile pic"
+                />
+              </div>
+              <div>
+                <h4>{user.name}</h4>
+                <h5>{user.email}</h5>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "108%"
+                  }}
+                >
+                  <h6>{posts.length} posts</h6>
+                  <h6>{user.followers.length} followers</h6>
+                  <h6>{user.following.length} following</h6>
+                </div>
+              </div>
             </div>
-            <div>
-              <h4>{user.name}</h4>
-              <h5>{user.email}</h5>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "108%"
-                }}
-              >
-                <h6>{posts.length} posts</h6>
-                <h6>{user.followers.length} followers</h6>
-                <h6>{user.following.length} following</h6>
+            <div style={{ margin: "10px" }} className="file-field input-field">
+              <div className="btn #64b5f6 blue darken-1">
+                <span>Edit Profile Pic</span>
+                <input
+                  onChange={e => this.updatePic(e.target.files[0])}
+                  type="file"
+                />
+              </div>
+              <div className="file-path-wrapper">
+                <input className="file-path validate" type="text" />
               </div>
             </div>
           </div>
@@ -76,4 +110,4 @@ class Profile extends React.Component {
 const mstp = ({ myPosts, user }) => {
   return { posts: myPosts, user };
 };
-export default connect(mstp, { myPosts })(Profile);
+export default connect(mstp, { myPosts, updatePic })(Profile);
