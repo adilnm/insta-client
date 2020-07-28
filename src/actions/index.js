@@ -10,7 +10,7 @@ export const signup = (data, ownProps) => {
       .then(res => res.json())
       .then(data => {
         if (!data.error) {
-          data.errorlocalStorage.setItem("jwt", data.token);
+          localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
           dispatch({ type: "CURRENT-USER", payload: data.user });
         }
@@ -34,7 +34,7 @@ export const signin = (data, ownProps) => {
       .then(res => res.json())
       .then(data => {
         if (!data.error) {
-          data.errorlocalStorage.setItem("jwt", data.token);
+          localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
           dispatch({ type: "CURRENT-USER", payload: data.user });
         }

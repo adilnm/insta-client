@@ -82,6 +82,7 @@ class Profile extends React.Component {
                   type="file"
                 />
               </div>
+              
               <div className="file-path-wrapper">
                 <input className="file-path validate" type="text" />
               </div>
