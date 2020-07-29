@@ -267,6 +267,13 @@ export const updateProfile = data => {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(data => console.log(data));
+      .then(data => {
+        console.log(data)
+        if (!data.error) {
+          localStorage.setItem("user", JSON.stringify(data));
+          dispatch({ type: "CURRENT-USER", payload: data });
+        }
+        // dispatch({ type: "SIGNUP", payload: {user:data,token:localStorage.getItem("token")} });
+      });
   };
 };

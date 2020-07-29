@@ -73,7 +73,6 @@ class UpdateProfile extends React.Component {
                 name="email"
                 type="email"
                 defaultValue={this.props.user.email}
-                placeholder="email"
               />
               <div className="file-field input-field">
                 <div className="btn #64b5f6 blue darken-1">
@@ -87,19 +86,14 @@ class UpdateProfile extends React.Component {
                   <input className="file-path validate" type="text" />
                 </div>
               </div>
-              <button
-                onClick={this.handleSubmit}
-                className="btn waves-effect waves-light #64b5f6 blue darken-1"
-              >
-                SignUp
-              </button>
+              
             </form>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleShow} variant="secondary">
               Close
             </Button>
-            <Button variant="primary">Submit</Button>
+            <Button onClick={this.handleSubmit} variant="primary">Submit</Button>
           </Modal.Footer>
         </Modal>
       </div>
