@@ -255,3 +255,18 @@ export const updatePic = pic => {
       .then(data => dispatch({ type: "CURRENT-USER", payload: data }));
   };
 };
+
+export const updateProfile = data => {
+  return dispatch => {
+    fetch("/updateprofile", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(data => console.log(data));
+  };
+};
