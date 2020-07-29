@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { myPosts, updatePic } from "../actions";
+import UpdateProfile from "./UpdateProfile";
 
 class Profile extends React.Component {
   componentDidMount() {
@@ -88,6 +89,7 @@ class Profile extends React.Component {
               </div>
             </div>
           </div>
+          <UpdateProfile/>
           <div className="gallery">
             {this.props.posts.map(item => {
               return (
