@@ -76,20 +76,13 @@ class Profile extends React.Component {
               </div>
             </div>
             <div style={{ margin: "10px" }} className="file-field input-field">
-              <div className="btn #64b5f6 blue darken-1">
-                <span>Edit Profile Pic</span>
-                <input
-                  onChange={e => this.updatePic(e.target.files[0])}
-                  type="file"
-                />
-              </div>
-              
+              <UpdateProfile />
+
               <div className="file-path-wrapper">
                 <input className="file-path validate" type="text" />
               </div>
             </div>
           </div>
-          <UpdateProfile/>
           <div className="gallery">
             {this.props.posts.map(item => {
               return (

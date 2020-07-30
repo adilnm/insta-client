@@ -9,9 +9,9 @@ class UpdateProfile extends React.Component {
     this.state = {
       show: false,
       name: props.user.name,
-      email: props.user.name,
       image: "",
-      url: props.user.pic
+      url: props.user.pic,
+      loading: false
     };
   }
 
@@ -36,10 +36,11 @@ class UpdateProfile extends React.Component {
       .then(() =>
         this.props.updateProfile({
           name: this.state.name,
-          email: this.state.email,
           pic: this.state.url
         })
-      );
+      )
+      this.handleShow()
+    // this.setState({ loading: true });
   };
 
   handleChange = event => {
@@ -52,11 +53,11 @@ class UpdateProfile extends React.Component {
     return (
       <div>
         <Button onClick={this.handleShow} variant="primary">
-          Launch demo modal
+          Update Profile
         </Button>
 
-        <Modal show={this.state.show}>
-          <Modal.Header>
+        <Modal show={this.state.show} onHide={this.handleShow}>
+          <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -68,12 +69,7 @@ class UpdateProfile extends React.Component {
                 defaultValue={this.props.user.name}
                 placeholder="name"
               />
-              <input
-                onChange={this.handleChange}
-                name="email"
-                type="email"
-                defaultValue={this.props.user.email}
-              />
+
               <div className="file-field input-field">
                 <div className="btn #64b5f6 blue darken-1">
                   <span>Upload Image</span>
@@ -86,14 +82,17 @@ class UpdateProfile extends React.Component {
                   <input className="file-path validate" type="text" />
                 </div>
               </div>
-              
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleShow} variant="secondary">
-              Close
+            <Button onClick={this.handleSubmit} variant="primary">
+              Submit
             </Button>
-            <Button onClick={this.handleSubmit} variant="primary">Submit</Button>
+            {this.state.loading ? (
+              <div className="progress">
+                <div className="indeterminate"></div>
+              </div>
+            ) : null}
           </Modal.Footer>
         </Modal>
       </div>
@@ -107,4 +106,6 @@ const mstp = ({ user }) => {
   };
 };
 
-export default connect(mstp, { updateProfile })(UpdateProfile);
+
+
+export default connect(mstp, {updateProfile})(UpdateProfile);

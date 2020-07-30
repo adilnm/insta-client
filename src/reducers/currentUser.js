@@ -7,7 +7,7 @@ export default (state = null, action) => {
     case "REMOVE-FOLLOWING":
       return {
         ...state,
-        following: [...state.following].filter(item => item != action.payload)
+        following: [...state.following].filter(item => item !== action.payload)
       };
     case "LOGOUT":
       return null;

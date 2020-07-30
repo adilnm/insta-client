@@ -23,6 +23,7 @@ export const signup = (data, ownProps) => {
 };
 
 export const signin = (data, ownProps) => {
+  console.log(ownProps)
   return dispatch => {
     fetch("/signin", {
       method: "post",
@@ -256,7 +257,7 @@ export const updatePic = pic => {
   };
 };
 
-export const updateProfile = data => {
+export const updateProfile = (data) => {
   return dispatch => {
     fetch("/updateprofile", {
       method: "put",
@@ -268,10 +269,12 @@ export const updateProfile = data => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         if (!data.error) {
           localStorage.setItem("user", JSON.stringify(data));
           dispatch({ type: "CURRENT-USER", payload: data });
+          // browserHistory.push('/')
+
+          // ownProps.history.push("/");
         }
         // dispatch({ type: "SIGNUP", payload: {user:data,token:localStorage.getItem("token")} });
       });

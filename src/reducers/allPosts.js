@@ -3,7 +3,7 @@ export default function(state = [], action) {
     case "ALL-POSTS":
       return action.payload;
     case "DELETE-POST":
-      return [...state].filter(post => post._id != action.payload);
+      return [...state].filter(post => post._id !== action.payload);
     default:
       return state;
   }
